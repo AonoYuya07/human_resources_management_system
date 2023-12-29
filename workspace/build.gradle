@@ -35,7 +35,7 @@ dependencies {
 	implementation 'javax.servlet:javax.servlet-api:4.0.1'
 	//servletを使用するためのライブラリここまで
 	//認証系で使用するライブラリここから
-	implementation "org.springframework.boot:spring-boot-starter-security"
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation "org.springframework.security:spring-security-test"
 	implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity6"
 	//認証系で使用するライブラリここまで

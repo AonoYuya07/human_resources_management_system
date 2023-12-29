@@ -4,16 +4,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import javax.servlet.http.HttpSession; // ライブラリの役割: セッション管理
 
 @SpringBootApplication
 @Controller
-public class WorkspaceApplication {
+public class UsersApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WorkspaceApplication.class, args);
+		SpringApplication.run(UsersApplication.class, args);
 	}
 
-	@GetMapping("/demo")
+	@GetMapping("/user/list")
 	public String index() {
 		return "index";
 	}
