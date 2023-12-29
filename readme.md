@@ -15,5 +15,3 @@ $ ./gradlew bootRun
 ```
 http://localhost:8080/
 ```
-
-ｓ
