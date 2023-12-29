@@ -4,7 +4,7 @@ yyyymmdd-実行順_SQLの説明.sql
 例) 20200101-01_テーブル作成.sql
 
 ## ファイル構成
-命名されたファイル名によって、記載内容を分けること。
+命名されたファイル名によって、記載内容を分けること。  
 create_〇〇_table.sql
 ```
 CREATE TABLE IF NOT EXISTS `〇〇` (
@@ -14,6 +14,17 @@ CREATE TABLE IF NOT EXISTS `〇〇` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新日時',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--初期データ作成
+INSERT INTO Users (
+    name,
+    created_at,
+    updated_at
+) VALUES (
+    'your name',
+    NOW(),
+    NOW()
+);
 ```
 
 insert_〇〇_data.sql
@@ -34,14 +45,14 @@ delete_〇〇_data.sql
 DELETE FROM `〇〇` WHERE `id` = 1;
 ```
 
-カラムの変更等を伴う場合は以下のようにすること
+カラムの変更等を伴う場合は以下のようにすること  
 ファイル名：alter_〇〇_table.sql
 ```
 ALTER TABLE `〇〇` CHANGE `name` `name` varchar(255) NOT NULL COMMENT '名前';
 ```
 
 ## ファイルの実行順
-ファイル名の先頭に実行順を記載すること。
+ファイル名の先頭に実行順を記載すること。  
 例）
 ```
 20200101-01_テーブル作成.sql
