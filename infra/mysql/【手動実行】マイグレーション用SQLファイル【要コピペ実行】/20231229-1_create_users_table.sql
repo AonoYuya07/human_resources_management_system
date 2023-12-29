@@ -7,7 +7,7 @@ CREATE TABLE Users (
     updated_at TIMESTAMP NULL COMMENT '更新日時',
     PRIMARY KEY (id)
 ) COMMENT='Usersテーブル';
-
+-- 全部貼り付けてエラー出る時はコメント削除して実行してみてください。
 --初期データ作成
 INSERT INTO Users (
     userId,
@@ -18,7 +18,7 @@ INSERT INTO Users (
 ) VALUES (
     'admin',
     '管理者',
-    '$2a$08$Dkx36d3lMe1/Ub.nR5QQkOAOYIt/nnEjy7O0bWxk4pCz9nl84.R7e', --4QEy38KttMBb
+    '$2a$08$Dkx36d3lMe1/Ub.nR5QQkOAOYIt/nnEjy7O0bWxk4pCz9nl84.R7e', -- 4QEy38KttMBb
     NOW(),
     NOW()
 );
