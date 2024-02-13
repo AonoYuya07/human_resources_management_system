@@ -6,34 +6,23 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
-import java.io.IOException; // ライブラリの役割: 例外処理
-import java.sql.Connection; // ライブラリの役割: データベース接続
-import java.sql.DriverManager; // ライブラリの役割: データベース接続
-import developapp.jp.workspace.service.DatabaseConnector; //自作のDB接続クラス
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import developapp.jp.workspace.config.SecurityConfig;
 import org.springframework.context.annotation.Bean;
 import developapp.jp.workspace.dataAccessObject.entity.Users;
 import developapp.jp.workspace.dataAccessObject.repository.UserRepository;
 import java.util.Optional;
 
-
 // @Componentをつけることで、このクラスがSpringのコンテナにBeanとして登録される
 @Component
-public class ApiCustomAuthenticationProvider implements AuthenticationProvider{
+public class ApiCustomAuthenticationProvider implements AuthenticationProvider {
 
     private UserRepository repository;
 
-
-    public ApiCustomAuthenticationProvider(UserRepository repository){
+    public ApiCustomAuthenticationProvider(UserRepository repository) {
         this.repository = repository;
     }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         // 入力したユーザ名・パスワードを取得
