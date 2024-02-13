@@ -23,7 +23,6 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
@@ -40,9 +39,17 @@ dependencies {
 	implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity6"
 	//認証系で使用するライブラリここまで
 	//DB接続系で使用するライブラリここから
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	//DB接続系で使用するライブラリここまで
+	//json系で使用するライブラリここから
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	//json系で使用するライブラリここまで
+	// Java JWTライブラリの依存性を追加
+	implementation 'com.auth0:java-jwt:3.18.1'
 }
 
 tasks.named('test') {
@@ -50,5 +57,5 @@ tasks.named('test') {
 }
 
 application {
-	mainClassName = 'developapp.jp.workspace.controller.LoginApplication'
+	mainClassName = 'developapp.jp.workspace.MainApplication'
 }

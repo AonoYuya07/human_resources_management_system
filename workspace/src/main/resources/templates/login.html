@@ -14,7 +14,11 @@
 </header>
 
 <div class="container">
-    <form method="post" action="/login/auth">
+    <form action="#" th:action="@{/login}"  method="post">
+        <!--/* エラーメッセージ */-->
+        <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+           th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
+            ログインエラーメッセージ</p>
         <div class="row">
             <div class="col">
                 <div class="card">

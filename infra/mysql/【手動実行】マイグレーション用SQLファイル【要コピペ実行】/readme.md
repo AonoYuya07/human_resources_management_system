@@ -51,6 +51,12 @@ DELETE FROM `〇〇` WHERE `id` = 1;
 ALTER TABLE `〇〇` CHANGE `name` `name` varchar(255) NOT NULL COMMENT '名前';
 ```
 
+カラムの追加の際は以下のようにすること  
+ファイル名：add_カラム名_column_for_テーブル名_table.sql  
+```
+ALTER TABLE `〇〇` ADD `〇〇` varchar(255) NOT NULL COMMENT '〇〇';
+```
+
 ## ファイルの実行順
 ファイル名の先頭に実行順を記載すること。  
 例）
