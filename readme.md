@@ -5,7 +5,7 @@ $ docker-compose up -d
 ```
 ②Dockerコンテナに入ってください。
 ```
-$ $docker exec -it study-app-1 /bin/bash
+$ docker exec -it study-app-1 /bin/bash
 ```
 ③以下のコマンドでSpringBootをコンパイル＆実行してください。
 ```

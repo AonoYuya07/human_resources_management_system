@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.web.csrf.CsrfToken;
 
 @RestController
 public class LoginApiController {
@@ -16,11 +17,17 @@ public class LoginApiController {
         SpringApplication.run(LoginApiController.class, args);
     }
 
-    @PostMapping("/api/login")
+    // CSRFトークンを返すためだけのパス
+    @PostMapping("/csrf")
+    public CsrfToken csrf(CsrfToken token) {
+        return token;
+    }
+
+    @PostMapping(path = "/api/login", consumes = "multipart/form-data")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         // 以下、処理を仮置き
         // workspace/src/main/java/developapp/jp/workspace/service/ApiCustomAuthenticationProvider.java
-        //上記で実装した認証処理を呼び出すようにしたい
+        // 上記で実装した認証処理を呼び出すようにしたい
         boolean authenticationSuccess = true; // 実際の認証ロジックに置き換える必要あり
 
         if (authenticationSuccess) {

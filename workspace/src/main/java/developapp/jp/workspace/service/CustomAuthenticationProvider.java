@@ -29,7 +29,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // ブラウザから入力したユーザ名・パスワードを取得
         String userId = authentication.getName();
         String password = (String) authentication.getCredentials();
-
+        System.err.println("userId: " + userId);
+        System.err.println("password: " + password);
         String dbUserId = null;
         String dbPassword = null;
 

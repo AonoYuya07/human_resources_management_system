@@ -47,10 +47,4 @@ public class ApiCustomAuthenticationProvider implements AuthenticationProvider {
         // authentication(認証方式)がUsernamePasswordAuthenticationToken.class(ユーザー名とパスワード認証)か判定
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 }

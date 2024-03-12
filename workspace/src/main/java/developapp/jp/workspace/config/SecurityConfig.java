@@ -7,8 +7,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import developapp.jp.workspace.service.CustomAuthenticationProvider;
 import developapp.jp.workspace.service.ApiCustomAuthenticationProvider;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -28,32 +31,31 @@ public class SecurityConfig {
 	}
 
 	// API用のセキュリティ設定
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		// 新しいバージョンの処理に変更すること
-		/* TODO */
-		// CSRFは有効にする
-		// ログインエンドポイントは「/api/login」
-		// ログイン成功時にはトークンを返す
-		// ログインエンドポイント以外は認証が必要
-		// ログインエンドポイントは認証済みの場合はアクセス不可
-		// 認証には作成した「apiCustomAuthenticationProvider」を使用したい
-		// ユーザ情報はDBから取得する（「Users」テーブル）
-		// CORSは有効にする
-		/* --------------- */
-		http.authenticationProvider(apiCustomAuthenticationProvider)
-				.authorizeHttpRequests(authz -> authz
-						.requestMatchers("/api/login").permitAll() // API用のログインエンドポイント
-						// 静的リソースへのアクセスは全て許可
-						.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-						.permitAll()
-						.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**")
-						.permitAll()
-						.anyRequest().authenticated() // それ以外は認証が必要
-				);
-
-		return http.build();
-	}
+	// アプリごと分ける必要があるかもしれない
+	// @Bean
+	// public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	// // 新しいバージョンの処理に変更すること
+	// /* TODO */
+	// // CSRFは有効にする
+	// // ログインエンドポイントは「/api/login」
+	// // ログイン成功時にはトークンを返す
+	// // ログインエンドポイント以外は認証が必要
+	// // ログインエンドポイントは認証済みの場合はアクセス不可
+	// // 認証には作成した「apiCustomAuthenticationProvider」を使用したい
+	// // ユーザ情報はDBから取得する（「Users」テーブル）
+	// // CORSは有効にする
+	// /* --------------- */
+	// http.authenticationProvider(apiCustomAuthenticationProvider)
+	// .csrf((csrf) -> csrf.disable())
+	// .authorizeHttpRequests(authz -> authz
+	// .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+	// .permitAll()
+	// .requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**",
+	// "/api/login")
+	// .permitAll()
+	// .anyRequest().authenticated());
+	// return http.build();
+	// }
 
 	// Web用のセキュリティ設定
 	@Bean
@@ -81,6 +83,19 @@ public class SecurityConfig {
 						.anyRequest().authenticated() // それ以外は認証が必要
 				);
 		return http.build();
+	}
+
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.addAllowedOrigin("*");
+		corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
+		corsConfiguration.addAllowedHeader("*");
+		corsConfiguration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource corsSource = new UrlBasedCorsConfigurationSource();
+		corsSource.registerCorsConfiguration("/**", corsConfiguration);
+
+		return corsSource;
 	}
 
 }
