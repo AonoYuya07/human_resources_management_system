@@ -1,15 +1,14 @@
 package developapp.jp.workspace.dataAccessObject.request;
 
-import javax.validation.constraints.*;
-
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
 public class RegistMemberRequest {
-    @NotEmpty
+    @NotEmpty(message = "ユーザ名は必須入力")
     private String userName;
 
-    @NotEmpty
+    @NotEmpty(message = "性別は必須入力")
     private String gender;
 
     // ゲッターとセッター
@@ -20,7 +19,6 @@ public class RegistMemberRequest {
 
     public void setUserName(String userName) {
         System.out.println("ユーザ名(set)：" + userName);
-
         this.userName = userName;
     }
 
@@ -30,12 +28,5 @@ public class RegistMemberRequest {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    @AssertTrue
-    //検証用メソッド
-    public boolean isSameValueInput() {
-        System.out.println("性別：" + this.gender);
-        return this.gender.equals("男性");
     }
 }
