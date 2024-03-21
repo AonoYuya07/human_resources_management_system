@@ -2,6 +2,8 @@ package developapp.jp.workspace.service;
 
 import developapp.jp.workspace.dataAccessObject.entity.Members;
 import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
+
+import org.checkerframework.checker.units.qual.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +20,7 @@ public class MembersService {
     @Transactional
     public Members createMember(Members member) {
         try {
-            Date date = new Date();
-            long time = date.getTime();
-            Timestamp nowTs = new Timestamp(time);
+            Timestamp nowTs = getTime();
             member.setCreated_at(nowTs);
             member.setUpdated_at(nowTs);
             return membersRepository.save(member);
@@ -39,6 +39,10 @@ public class MembersService {
     @Transactional
     public Members updateMember(Members member) {
         try {
+            Timestamp nowTs = getTime();
+            member.setUpdated_at(nowTs);
+            // created_atは現在の値を保持
+            member.setCreated_at(getMember(member.getId()).getCreated_at());
             return membersRepository.save(member);
         } catch (Exception e) {
             throw new RuntimeException("ユーザーの更新に失敗しました。", e);
@@ -60,5 +64,12 @@ public class MembersService {
         System.out.println("membersRepository = " + membersRepository);
         System.out.println("membersRepository.findAll() = " + membersRepository.findAll());
         return membersRepository.findAll();
+    }
+
+    public Timestamp getTime() {
+        Date date = new Date();
+        long time = date.getTime();
+        Timestamp nowTs = new Timestamp(time);
+        return nowTs;
     }
 }

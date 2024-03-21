@@ -104,4 +104,32 @@ public class MembersApplication {
 		return "edit"; // 登録完了後に表示するビュー名
 	}
 
+	@PostMapping("/member/edit/{id}/complete")
+	public String updateMember(@ModelAttribute @Validated RegistMemberRequest registMemberRequest,
+			BindingResult result, Model model, @PathVariable("id") int id) {
+		if (result.hasErrors()) {
+			// バリデーションエラーがある場合、フォームを再表示
+			model.addAttribute("registMemberRequest", registMemberRequest);
+			model.addAttribute("id", id);
+			return "edit"; // エラーがある場合はフォームを再表示するビュー名
+		} else {
+			// バリデーションエラーがない場合、更新処理などを行う
+			// Membersエンティティにリクエストの値をセットし、MembersServiceのupdateMemberメソッドを呼び出す
+			Members member = new Members();
+			member.setId(id);
+			member.setName(registMemberRequest.getUserName());
+			member.setAge(registMemberRequest.getAge());
+			member.setGender(registMemberRequest.getGender());
+			member.setPlatform(registMemberRequest.getPlatform());
+			member.setUrl(registMemberRequest.getUrl());
+			membersService.updateMember(member);
+			// 登録処理後、完了ページまたは別のページにリダイレクト
+			model.addAttribute("infoMessage", "更新が完了しました。");
+			// 一覧表示用のデータを取得
+			Iterable<Members> members = membersService.getAllMembers();
+			// 一覧表示用のデータをModelに設定
+			model.addAttribute("members", members);
+			return "list"; // 登録完了後に表示するビュー名
+		}
+	}
 }
