@@ -14,17 +14,17 @@ import org.springframework.validation.Validator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Controller
-public class UsersApplication {
+public class MembersApplication {
 	// フォームの初期表示用
-	@GetMapping("/user/list")
+	@GetMapping("/member/list")
 	public String showForm(RegistMemberRequest form, Model model) {
 		model.addAttribute("registMemberRequest", form);
-//		form.setUserName("山田太郎");
+		form.setAge(20);
 		return "index"; // フォームを表示するビュー名（register.htmlなど）
 	}
 
 	// フォーム送信時の処理
-	@PostMapping("/user/complete")
+	@PostMapping("/member/complete")
 	public String registMember(
 			@ModelAttribute @Validated RegistMemberRequest registMemberRequest,
 			BindingResult result, Model model) {

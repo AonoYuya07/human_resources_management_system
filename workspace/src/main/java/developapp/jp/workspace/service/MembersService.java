@@ -1,23 +1,23 @@
 package developapp.jp.workspace.service;
 
-import developapp.jp.workspace.dataAccessObject.entity.Users;
-import developapp.jp.workspace.dataAccessObject.repository.UserRepository;
+import developapp.jp.workspace.dataAccessObject.entity.Members;
+import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UsersService {
+public class MembersService {
 
     @Autowired
-    private UserRepository userRepository;
+    private MembersRepository membersRepository;
 
     // ユーザーを作成する
     @Transactional
-    public Users createUser(Users user) {
+    public Members createMember(Members member) {
         try {
             // ここでパスワードはエンティティにセットする際にハッシュ化されます
-            return userRepository.save(user);
+            return membersRepository.save(member);
         } catch (Exception e) {
             // ここでトランザクションは自動的にロールバックされます
             throw new RuntimeException("ユーザーの作成に失敗しました。", e);

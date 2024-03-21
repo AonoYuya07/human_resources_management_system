@@ -63,7 +63,7 @@ public class SecurityConfig {
 		http.authenticationProvider(customAuthenticationProvider) // 認証処理を行うクラスを指定
 				.formLogin(login -> login
 						.loginPage("/login").permitAll() // ログインページのURLを指定
-						.defaultSuccessUrl("/user/list") // ログイン認証成功後の遷移先URLを指定
+						.defaultSuccessUrl("/member/list") // ログイン認証成功後の遷移先URLを指定
 						.usernameParameter("user") // ログインページで指定したユーザ名を入力する項目を指定
 						.passwordParameter("password") // ログインページで指定したパスワードを入力する項目を指定
 				)
