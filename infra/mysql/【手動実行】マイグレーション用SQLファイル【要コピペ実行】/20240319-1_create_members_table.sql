@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --初期データ作成
-INSERT INTO Users (
+INSERT INTO members (
     name,
     age,
     gender,

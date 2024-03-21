@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import developapp.jp.workspace.service.CustomAuthenticationProvider;
-import developapp.jp.workspace.service.ApiCustomAuthenticationProvider;
+// import developapp.jp.workspace.service.ApiCustomAuthenticationProvider;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
@@ -22,12 +22,14 @@ public class SecurityConfig {
 	private final CustomAuthenticationProvider customAuthenticationProvider;
 
 	// API用の認証処理クラス
-	private final ApiCustomAuthenticationProvider apiCustomAuthenticationProvider;
+	// private final ApiCustomAuthenticationProvider
+	// apiCustomAuthenticationProvider;
 
-	public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider,
-			ApiCustomAuthenticationProvider apiCustomAuthenticationProvider) {
+	public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider
+	// ,ApiCustomAuthenticationProvider apiCustomAuthenticationProvider
+	) {
 		this.customAuthenticationProvider = customAuthenticationProvider;
-		this.apiCustomAuthenticationProvider = apiCustomAuthenticationProvider;
+		// this.apiCustomAuthenticationProvider = apiCustomAuthenticationProvider;
 	}
 
 	// API用のセキュリティ設定

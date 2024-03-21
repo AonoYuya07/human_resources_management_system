@@ -1,4 +1,4 @@
-CREATE TABLE Users (
+CREATE TABLE users (
     id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主キー、オートインクリメント',
     userId VARCHAR(255) NOT NULL UNIQUE COMMENT 'ログイン用ユーザID、ユニーク',
     userName VARCHAR(255) NOT NULL COMMENT '日本語含むユーザ名',

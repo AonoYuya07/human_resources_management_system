@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.context.annotation.Bean;
+import developapp.jp.workspace.service.DatabaseConnector;
 
 // @Componentをつけることで、このクラスがSpringのコンテナにBeanとして登録される
 @Component
@@ -29,13 +30,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // ブラウザから入力したユーザ名・パスワードを取得
         String userId = authentication.getName();
         String password = (String) authentication.getCredentials();
-        System.err.println("userId: " + userId);
-        System.err.println("password: " + password);
         String dbUserId = null;
         String dbPassword = null;
 
         // DBからユーザー情報を取得
-        String sql = "SELECT userId, password FROM Users WHERE userId = ?";
+        String sql = "SELECT userId, password FROM users WHERE userId = ?";
         // //自作のDB接続クラスをインスタンス化
         // DatabaseConnector databaseConnector = new DatabaseConnector();
         // 外部ファイルに作成した処理でDBへの接続を行う。またSQLインジェクション対策にPreparedStatementを使用
@@ -68,9 +67,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             e.printStackTrace();
         }
         // String encodedPassword = this.passwordEncoder().encode(password);
-        System.out.println("passwordEncoder().matches:" + passwordEncoder().matches(password, dbPassword));
-        System.out.println("password: " + password);
-        System.out.println("dbPassword: " + dbPassword);
         // this.passwordEncoder().matchesは第一引数に平文のパスワードを入れてマッチするか判定する
         if (userId.equals(dbUserId) && this.passwordEncoder().matches(password, dbPassword)) {
             // 認証成功時は、認証トークン(ユーザ名、パスワード、権限)を作成

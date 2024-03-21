@@ -8,19 +8,19 @@ import java.sql.Timestamp;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
-@Table(name = "members")
+@Table(name = "Members")
 public class Members {
     /*
-    * テーブル構造
-    * 1	id	        int	            主キー、オートインクリメント
-	* 2 name	    varchar(255)	名前
-	* 3 age	        int	            年齢
-	* 4 gender	    varchar(255)	性別
-	* 5 platform	varchar(255)	プラットフォーム(メイン活動場所)
-	* 6 url	        varchar(255)	URL
-	* 7 created_at	datetime	    作成日時
-	* 8 updated_at	datetime	    更新日時
-    */
+     * テーブル構造
+     * 1 id int 主キー、オートインクリメント
+     * 2 name varchar(255) 名前
+     * 3 age int 年齢
+     * 4 gender varchar(255) 性別
+     * 5 platform varchar(255) プラットフォーム(メイン活動場所)
+     * 6 url varchar(255) URL
+     * 7 created_at datetime 作成日時
+     * 8 updated_at datetime 更新日時
+     */
     @Id
     @Column(name = "id")
     private int id;
@@ -68,7 +68,7 @@ public class Members {
         return gender;
     }
 
-    public void setGender(String gender){
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
