@@ -3,49 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <title>登録済みメンバー一覧</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    />
   </head>
   <body>
-    <h1>メンバー一覧</h1>
-    <div th:if="${infoMessage}" class="row">
-      <div class="col-md-12 m-3">
-        <div class="p-3 mb-2 bg-success text-white">
-          <label th:text="${infoMessage}" />
+    <div class="container mt-5">
+      <h1>メンバー一覧</h1>
+      <div th:if="${infoMessage}" class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success" role="alert">
+            <label th:text="${infoMessage}"></label>
+          </div>
         </div>
       </div>
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>名前</th>
+            <th>年齢</th>
+            <th>性別</th>
+            <th>プラットフォーム</th>
+            <th>URL</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="member : ${members}">
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.age}"></td>
+            <td th:text="${member.gender}"></td>
+            <td th:text="${member.platform}"></td>
+            <td>
+              <a th:href="${member.url}" target="_blank" th:text="${member.url}"
+                >URL</a
+              >
+            </td>
+            <td>
+              <a
+                th:href="'/member/edit/' + ${member.id}"
+                class="btn btn-primary btn-sm"
+                >編集</a
+              >
+              <a
+                href="javascript:void(0)"
+                th:onclick="'confirmDelete(event, '+${member.id}+');'"
+                class="btn btn-danger btn-sm"
+                >削除</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="/member/regist" class="btn btn-success">新規登録</a>
     </div>
-    <table>
-      <tr>
-        <th>名前</th>
-        <th>年齢</th>
-        <th>性別</th>
-        <th>プラットフォーム</th>
-        <th>URL</th>
-      </tr>
-      <tr th:each="member : ${members}">
-        <td th:text="${member.name}">ユーザ名</td>
-        <td th:text="${member.age}">年齢</td>
-        <td th:text="${member.gender}">性別</td>
-        <td th:text="${member.platform}">プラットフォーム</td>
-        <td th:text="${member.url}">URL</td>
-        <td><a th:href="'/member/edit/'+@{(${member.id})}">編集</a></td>
-        <td>
-          <a
-            href="javascript:void(0)"
-            th:onclick="'confirmDelete(event, '+${member.id}+');'"
-            >削除</a
-          >
-        </td>
-      </tr>
-    </table>
-    <a href="/member/regist">新規登録</a>
     <script>
       function confirmDelete(event, memberId) {
-        event.preventDefault(); // デフォルトのリンクの挙動を停止
+        event.preventDefault();
         const deleteConfirmed = confirm(
           "このメンバーを削除してもよろしいですか？"
         );
         if (deleteConfirmed) {
-          window.location.href = "/member/delete/" + memberId; // 確認が取れたら削除処理へ遷移
+          window.location.href = "/member/delete/" + memberId;
         }
       }
     </script>

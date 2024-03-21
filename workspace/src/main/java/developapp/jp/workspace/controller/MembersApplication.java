@@ -1,6 +1,5 @@
 package developapp.jp.workspace.controller;
 
-// import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -8,18 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import developapp.jp.workspace.dataAccessObject.request.RegistMemberRequest;
 import org.springframework.ui.Model;
-// import jakarta.validation.Valid;
-// import org.springframework.validation.Validator;
-// import org.springframework.boot.autoconfigure.SpringBootApplication;
 import developapp.jp.workspace.service.MembersService;
 import developapp.jp.workspace.dataAccessObject.entity.Members;
-// import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-// import developapp.jp.workspace.service.MembersService;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -96,8 +88,6 @@ public class MembersApplication {
 		form.setPlatform(member.getPlatform());
 		form.setUrl(member.getUrl());
 		form.setAge(member.getAge());
-		System.out.println("form = " + form);
-		System.out.println("id = " + id);
 		return "edit"; // 登録完了後に表示するビュー名
 	}
 
