@@ -7,6 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import developapp.jp.workspace.dataAccessObject.request.RegistMemberRequest;
 import org.springframework.ui.Model;
 // import jakarta.validation.Valid;
@@ -17,6 +19,7 @@ import developapp.jp.workspace.dataAccessObject.entity.Members;
 // import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 // import developapp.jp.workspace.service.MembersService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MembersApplication {
@@ -70,4 +73,35 @@ public class MembersApplication {
 			return "list"; // 登録完了後に表示するビュー名
 		}
 	}
+
+	@GetMapping("/member/delete/{id}")
+	public String deleteMember(@PathVariable("id") int id, Model model) {
+		// IDをもとに削除処理を行う
+		membersService.deleteMember(id);
+		// 削除処理後、完了ページまたは別のページにリダイレクト
+		model.addAttribute("infoMessage", "削除が完了しました。");
+		// 一覧表示用のデータを取得
+		Iterable<Members> members = membersService.getAllMembers();
+		// 一覧表示用のデータをModelに設定
+		model.addAttribute("members", members);
+		return "list"; // 登録完了後に表示するビュー名
+	}
+
+	@GetMapping("/member/edit/{id}")
+	public String editMember(@PathVariable("id") int id, RegistMemberRequest form, Model model) {
+		// 編集画面に遷移するために、IDから対象データを取得してフォームに設定する処理を行う
+		Members member = membersService.getMember(id);
+		model.addAttribute("registMemberRequest", form);
+		model.addAttribute("id", id);
+		// フォームにデータを設定
+		form.setUserName(member.getName());
+		form.setGender(member.getGender());
+		form.setPlatform(member.getPlatform());
+		form.setUrl(member.getUrl());
+		form.setAge(member.getAge());
+		System.out.println("form = " + form);
+		System.out.println("id = " + id);
+		return "edit"; // 登録完了後に表示するビュー名
+	}
+
 }

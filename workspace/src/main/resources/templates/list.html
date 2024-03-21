@@ -27,8 +27,27 @@
         <td th:text="${member.gender}">性別</td>
         <td th:text="${member.platform}">プラットフォーム</td>
         <td th:text="${member.url}">URL</td>
+        <td><a th:href="'/member/edit/'+@{(${member.id})}">編集</a></td>
+        <td>
+          <a
+            href="javascript:void(0)"
+            th:onclick="'confirmDelete(event, '+${member.id}+');'"
+            >削除</a
+          >
+        </td>
       </tr>
     </table>
     <a href="/member/regist">新規登録</a>
+    <script>
+      function confirmDelete(event, memberId) {
+        event.preventDefault(); // デフォルトのリンクの挙動を停止
+        const deleteConfirmed = confirm(
+          "このメンバーを削除してもよろしいですか？"
+        );
+        if (deleteConfirmed) {
+          window.location.href = "/member/delete/" + memberId; // 確認が取れたら削除処理へ遷移
+        }
+      }
+    </script>
   </body>
 </html>
