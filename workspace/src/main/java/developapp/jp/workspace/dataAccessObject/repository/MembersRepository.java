@@ -7,6 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface MembersRepository extends JpaRepository<Members, Integer> {
-    public Optional<Members> findById(int Id);
     //CRUDメソッドは自動的に生成されている
 }

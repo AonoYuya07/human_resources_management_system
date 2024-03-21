@@ -16,11 +16,42 @@ public class MembersService {
     @Transactional
     public Members createMember(Members member) {
         try {
-            // ここでパスワードはエンティティにセットする際にハッシュ化されます
             return membersRepository.save(member);
         } catch (Exception e) {
-            // ここでトランザクションは自動的にロールバックされます
+            // エラーの場合はロールバックされる
             throw new RuntimeException("ユーザーの作成に失敗しました。", e);
         }
+    }
+
+    // ユーザーを取得する
+    public Members getMember(int id) {
+        return membersRepository.findById(id).orElse(null);
+    }
+
+    // ユーザーを更新する
+    @Transactional
+    public Members updateMember(Members member) {
+        try {
+            return membersRepository.save(member);
+        } catch (Exception e) {
+            throw new RuntimeException("ユーザーの更新に失敗しました。", e);
+        }
+    }
+
+    // ユーザーを削除する
+    @Transactional
+    public void deleteMember(int id) {
+        try {
+            membersRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("ユーザーの削除に失敗しました。", e);
+        }
+    }
+
+    // すべてのユーザーを取得する
+    public Iterable<Members> getAllMembers() {
+        System.out.println("membersRepository = " + membersRepository);
+        System.out.println("membersRepository.findAll() = " + membersRepository.findAll());
+        return membersRepository.findAll();
     }
 }

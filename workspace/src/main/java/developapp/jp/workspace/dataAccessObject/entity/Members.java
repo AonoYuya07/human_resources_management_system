@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
-@Table(name = "Members")
+@Table(name = "members")
 public class Members {
     /*
     * テーブル構造

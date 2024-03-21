@@ -12,15 +12,32 @@ import org.springframework.ui.Model;
 import jakarta.validation.Valid;
 import org.springframework.validation.Validator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import developapp.jp.workspace.service.MembersService;
+import developapp.jp.workspace.dataAccessObject.entity.Members;
+import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import developapp.jp.workspace.service.MembersService;
 
 @Controller
 public class MembersApplication {
-	// フォームの初期表示用
+
+	@Autowired
+	private MembersService membersService;
+	//一覧
 	@GetMapping("/member/list")
+	public String list(Model model) {
+		// 一覧表示用のデータを取得
+		Iterable<Members> members = membersService.getAllMembers();
+		// 一覧表示用のデータをModelに設定
+		model.addAttribute("members", members);
+		return "list";
+	}
+	// フォームの初期表示用
+	@GetMapping("/member/regist")
 	public String showForm(RegistMemberRequest form, Model model) {
 		model.addAttribute("registMemberRequest", form);
-		form.setAge(20);
-		return "index"; // フォームを表示するビュー名（register.htmlなど）
+		form.setAge(20); // 年齢の初期値を20に設定
+		return "regist";
 	}
 
 	// フォーム送信時の処理
@@ -28,12 +45,6 @@ public class MembersApplication {
 	public String registMember(
 			@ModelAttribute @Validated RegistMemberRequest registMemberRequest,
 			BindingResult result, Model model) {
-		System.out.println("bindingResult：" + result);
-		System.out.println("バリデーションエラーがあるかどうか：" + result.hasErrors());
-		System.out.println("formの内容：" + registMemberRequest);
-		System.out.println("modelの内容：" + model);
-		System.out.println("getUserName()の内容：" + registMemberRequest.getUserName());
-		System.out.println("Errors: " + result.getAllErrors());
 		if (result.hasErrors()) {
 			// バリデーションエラーがある場合、フォームを再表示
 			model.addAttribute("registMemberRequest", registMemberRequest);
