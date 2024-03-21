@@ -20,6 +20,7 @@ import developapp.jp.workspace.dataAccessObject.entity.Members;
 import org.springframework.beans.factory.annotation.Autowired;
 // import developapp.jp.workspace.service.MembersService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MembersApplication {
@@ -49,7 +50,7 @@ public class MembersApplication {
 	@PostMapping("/member/complete")
 	public String registMember(
 			@ModelAttribute @Validated RegistMemberRequest registMemberRequest,
-			BindingResult result, Model model) {
+			BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			// バリデーションエラーがある場合、フォームを再表示
 			model.addAttribute("registMemberRequest", registMemberRequest);
@@ -65,12 +66,8 @@ public class MembersApplication {
 			member.setUrl(registMemberRequest.getUrl());
 			membersService.createMember(member);
 			// 登録処理後、完了ページまたは別のページにリダイレクト
-			model.addAttribute("infoMessage", "登録が完了しました。");
-			// 一覧表示用のデータを取得
-			Iterable<Members> members = membersService.getAllMembers();
-			// 一覧表示用のデータをModelに設定
-			model.addAttribute("members", members);
-			return "list"; // 登録完了後に表示するビュー名
+			redirectAttributes.addFlashAttribute("infoMessage", "登録が完了しました。");
+			return "redirect:/member/list"; // リダイレクト先
 		}
 	}
 
@@ -106,7 +103,7 @@ public class MembersApplication {
 
 	@PostMapping("/member/edit/{id}/complete")
 	public String updateMember(@ModelAttribute @Validated RegistMemberRequest registMemberRequest,
-			BindingResult result, Model model, @PathVariable("id") int id) {
+			BindingResult result, Model model, @PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			// バリデーションエラーがある場合、フォームを再表示
 			model.addAttribute("registMemberRequest", registMemberRequest);
@@ -124,12 +121,8 @@ public class MembersApplication {
 			member.setUrl(registMemberRequest.getUrl());
 			membersService.updateMember(member);
 			// 登録処理後、完了ページまたは別のページにリダイレクト
-			model.addAttribute("infoMessage", "更新が完了しました。");
-			// 一覧表示用のデータを取得
-			Iterable<Members> members = membersService.getAllMembers();
-			// 一覧表示用のデータをModelに設定
-			model.addAttribute("members", members);
-			return "list"; // 登録完了後に表示するビュー名
+			redirectAttributes.addFlashAttribute("infoMessage", "更新が完了しました。");
+			return "redirect:/member/list"; // リダイレクト先
 		}
 	}
 }
