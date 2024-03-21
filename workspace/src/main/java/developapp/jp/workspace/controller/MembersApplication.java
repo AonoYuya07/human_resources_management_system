@@ -50,12 +50,24 @@ public class MembersApplication {
 		if (result.hasErrors()) {
 			// バリデーションエラーがある場合、フォームを再表示
 			model.addAttribute("registMemberRequest", registMemberRequest);
-			return "index"; // エラーがある場合はフォームを再表示するビュー名
+			return "regist"; // エラーがある場合はフォームを再表示するビュー名
 		} else {
 			// バリデーションエラーがない場合、登録処理などを行う
+			// Membersエンティティにリクエストの値をセットし、MembersServiceのcreateMemberメソッドを呼び出す
+			Members member = new Members();
+			member.setName(registMemberRequest.getUserName());
+			member.setAge(registMemberRequest.getAge());
+			member.setGender(registMemberRequest.getGender());
+			member.setPlatform(registMemberRequest.getPlatform());
+			member.setUrl(registMemberRequest.getUrl());
+			membersService.createMember(member);
 			// 登録処理後、完了ページまたは別のページにリダイレクト
 			model.addAttribute("infoMessage", "登録が完了しました。");
-			return "index"; // 登録完了後に表示するビュー名
+			// 一覧表示用のデータを取得
+			Iterable<Members> members = membersService.getAllMembers();
+			// 一覧表示用のデータをModelに設定
+			model.addAttribute("members", members);
+			return "list"; // 登録完了後に表示するビュー名
 		}
 	}
 }

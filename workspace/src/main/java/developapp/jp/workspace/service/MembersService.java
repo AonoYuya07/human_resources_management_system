@@ -5,6 +5,8 @@ import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Date;
+import java.sql.Timestamp;
 
 @Service
 public class MembersService {
@@ -16,6 +18,11 @@ public class MembersService {
     @Transactional
     public Members createMember(Members member) {
         try {
+            Date date = new Date();
+            long time = date.getTime();
+            Timestamp nowTs = new Timestamp(time);
+            member.setCreated_at(nowTs);
+            member.setUpdated_at(nowTs);
             return membersRepository.save(member);
         } catch (Exception e) {
             // エラーの場合はロールバックされる
