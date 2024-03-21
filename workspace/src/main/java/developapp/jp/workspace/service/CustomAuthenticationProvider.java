@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.springframework.context.annotation.Bean;
-import developapp.jp.workspace.service.DatabaseConnector;
+// import developapp.jp.workspace.service.DatabaseConnector;
 
 // @Componentをつけることで、このクラスがSpringのコンテナにBeanとして登録される
 @Component

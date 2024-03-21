@@ -1,6 +1,6 @@
 package developapp.jp.workspace.controller;
 
-import org.springframework.boot.SpringApplication;
+// import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -9,21 +9,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import developapp.jp.workspace.dataAccessObject.request.RegistMemberRequest;
 import org.springframework.ui.Model;
-import jakarta.validation.Valid;
-import org.springframework.validation.Validator;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+// import jakarta.validation.Valid;
+// import org.springframework.validation.Validator;
+// import org.springframework.boot.autoconfigure.SpringBootApplication;
 import developapp.jp.workspace.service.MembersService;
 import developapp.jp.workspace.dataAccessObject.entity.Members;
-import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
+// import developapp.jp.workspace.dataAccessObject.repository.MembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import developapp.jp.workspace.service.MembersService;
+// import developapp.jp.workspace.service.MembersService;
 
 @Controller
 public class MembersApplication {
 
 	@Autowired
 	private MembersService membersService;
-	//一覧
+
+	// 一覧
 	@GetMapping("/member/list")
 	public String list(Model model) {
 		// 一覧表示用のデータを取得
@@ -32,6 +33,7 @@ public class MembersApplication {
 		model.addAttribute("members", members);
 		return "list";
 	}
+
 	// フォームの初期表示用
 	@GetMapping("/member/regist")
 	public String showForm(RegistMemberRequest form, Model model) {
