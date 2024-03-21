@@ -3,60 +3,90 @@
   <head>
     <meta charset="UTF-8" />
     <title>会員登録フォーム</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    />
   </head>
   <body>
-    <h1>会員登録</h1>
-    <form
-      th:action="@{/member/edit/{id}/complete(id=${id})}"
-      th:object="${registMemberRequest}"
-      method="post"
-      enctype="multipart/form-data"
-    >
-      <div>
-        <label for="userName">ユーザ名:</label>
-        <input type="text" id="userName" th:field="*{userName}" />
-        <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">
-          ユーザ名エラー
+    <div class="container mt-4">
+      <h1>会員登録</h1>
+      <form
+        th:action="@{/member/edit/{id}/complete(id=${id})}"
+        th:object="${registMemberRequest}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="userName">ユーザ名:</label>
+          <input
+            type="text"
+            id="userName"
+            th:field="*{userName}"
+            class="form-control"
+          />
+          <div
+            th:if="${#fields.hasErrors('userName')}"
+            th:errors="*{userName}"
+            class="alert alert-danger"
+          ></div>
         </div>
-      </div>
-      <div>
-        <label for="age">年齢:</label>
-        <input type="number" id="age" th:field="*{age}" />
-        <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">
-          年齢エラー
+        <div class="form-group">
+          <label for="age">年齢:</label>
+          <input
+            type="number"
+            id="age"
+            th:field="*{age}"
+            class="form-control"
+          />
+          <div
+            th:if="${#fields.hasErrors('age')}"
+            th:errors="*{age}"
+            class="alert alert-danger"
+          ></div>
         </div>
-      </div>
-      <div>
-        <label for="gender">性別:</label>
-        <select id="gender" th:field="*{gender}">
-          <option value="">選択してください</option>
-          <option value="男性">男性</option>
-          <option value="女性">女性</option>
-          <option value="その他">その他</option>
-        </select>
-        <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">
-          性別エラー
+        <div class="form-group">
+          <label for="gender">性別:</label>
+          <select id="gender" th:field="*{gender}" class="form-control">
+            <option value="">選択してください</option>
+            <option value="男性">男性</option>
+            <option value="女性">女性</option>
+            <option value="その他">その他</option>
+          </select>
+          <div
+            th:if="${#fields.hasErrors('gender')}"
+            th:errors="*{gender}"
+            class="alert alert-danger"
+          ></div>
         </div>
-      </div>
-      <div>
-        <label for="platform">プラットフォーム（メイン活動場所）:</label>
-        <input type="text" id="platform" th:field="*{platform}" />
-        <div th:if="${#fields.hasErrors('platform')}" th:errors="*{platform}">
-          プラットフォームエラー
+        <div class="form-group">
+          <label for="platform">プラットフォーム（メイン活動場所）:</label>
+          <input
+            type="text"
+            id="platform"
+            th:field="*{platform}"
+            class="form-control"
+          />
+          <div
+            th:if="${#fields.hasErrors('platform')}"
+            th:errors="*{platform}"
+            class="alert alert-danger"
+          ></div>
         </div>
-      </div>
-      <div>
-        <label for="url">URL:</label>
-        <input type="text" id="url" th:field="*{url}" />
-        <div th:if="${#fields.hasErrors('url')}" th:errors="*{url}">
-          URLエラー
+        <div class="form-group">
+          <label for="url">URL:</label>
+          <input type="text" id="url" th:field="*{url}" class="form-control" />
+          <div
+            th:if="${#fields.hasErrors('url')}"
+            th:errors="*{url}"
+            class="alert alert-danger"
+          ></div>
         </div>
-      </div>
-      <div>
-        <button type="submit" value="update">更新</button>
-        <!-- 戻るボタン -->
-        <a th:href="@{/member/list}">戻る</a>
-      </div>
-    </form>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">更新</button>
+          <a th:href="@{/member/list}" class="btn btn-secondary">戻る</a>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
